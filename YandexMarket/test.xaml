@@ -1,0 +1,182 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="test" this:test.in_RamFrom="1" this:test.in_RamTo="8" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_RamFrom" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_RamTo" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1697,1736</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>test_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="36">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="test" sap:VirtualizedContainerService.HintSize="678,1671" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
+      <Variable x:TypeArguments="x:String" Name="RegexPatternt" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="636,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[RegexPatternt]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["\d+"]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="636,1479" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1263" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Int32" Name="RamQuantityCurrent" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NClick ClickType="Single" DisplayName="Click Показать всю RAM" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="542, 753, 99, 26" ElementType="Button" FriendlyName="'Показать всё'" FullSelectorArgument="&lt;webctrl tag='DIV' innertext='Оперативная память*' /&gt;&lt;webctrl aaname='Показать*' parentid='search-prepack' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='DIV' innertext='Линейка процессора*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' type='' check:text='Показать всё' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAeCAYAAAAxbADwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFqSURBVGhD7dpBaoNAFMbxHsWjNYexZ5EeJRAEIQEVjKsBRRGSLOLGV970dajtSLWx9S2+H8xiJMnmHxPyMk8ksiyjy+Uiu+WOxyPdbjfZzXGgMAgokBXu5TI4Lk6apg/F4edfr1fZ/WAfvkd5ORCZiHaI47VZHBcDcSZtE+czxJmEOIohjmKIoxjiKIY4iiGOYoij2PZxYJKLU5YlNU0ju+XiOKb7/S47WIOLw+/6JEmo73u5Mp8xhoqikB2sxcVhbdvaQKfTyX5MzVn8eA4zDIO8CqxlFOcDj/75Tpqz8FH2d7xxQAfEUQxxFEMcxRBHMcRRDHEUQxzFvsWpqsqeYfNNA3yLZ3L8YxTWN4qT5zmdz2fqus5OqOcsHpbyCIdHP7AuF4fvGA7zGzws5UBL1K87d9rTHTCEERfnP4/j2jDPEdWyd0dzR9fAxeHvj0fi8PPnfvfUxpPAHtHdUWRkD9vE8cLf1V8QvQFXJqk6+Y7yjgAAAABJRU5ErkJggg==" InformativeScreenshot="d873d499e8a00e6ac0cbafe6ac7ee46e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" />
+              </uix:NClick.Target>
+            </uix:NClick>
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели RAM" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='11' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" MaximumResults="0">
+              <uix:NExtractData.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="542, -1270, 331, 6566" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="df779395993d2c37caf50b1c20ad7708.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
+              </uix:NExtractData.Target>
+            </uix:NExtractData>
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,758" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                  </ActivityAction.Argument>
+                  <Sequence sap:VirtualizedContainerService.HintSize="526,637" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Matches sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[CurrentRow(&quot;Name&quot;).ToString]" IsBuilderTabModified="False" Pattern="[RegexPatternt]" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="484,61" sap2010:WorkflowViewState.IdRef="Assign_1">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[RamQuantityCurrent]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <If Condition="[RamQuantityCurrent &gt;= in_RamFrom And RamQuantityCurrent &lt;= in_RamTo]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
+                      <If.Then>
+                        <uix:NClick ClickType="Single" DisplayName="Click Модель Ram" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
+                          <uix:NClick.Target>
+                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="590, -1629, 171, 18" ElementType="Text" FriendlyName="'AMD A10'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, RamQuantityCurrent)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEoAAAAYCAYAAABdlmuNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJfSURBVFhH7ZVRTsMwDIY5Sp/XU+wm7Al6A3aA7oEdYBxh2hBvE3eYqECIMwypE1eoSR2ncxyny2CP+aRQEju288ftbrqug578HH/e4N/MWQahnHKOPPfnuaMSGb5RjjzX59GO+nmdw3Q6NWMOu5YWOe0O5mN25AtWgc8P7B76NWU87Iw1FRfbjKcvWovhfFfmP4XPFatDP0/kG3WE7d0EyvsKqrKE6uUYKn3Yoq2M2c38+FKhvSwr2B6c/QjP9yVMlu80t3Rdi+u97/O3rEeZvz2ib4V7lvAe82+WWMNkYs5j/D7sqrCz+uSc0DvqsIZZUUC9b2F9W0Bxu4ZAZPIpcNTQ0PIJ2ov2GawPtOzWF+GOwablEzQL8tvXmKPek4GBPmRrNzOlTr0W3CfWVKG8oFgIPyjhxNzY52wjjub2beT+MaEMsXweDdRDzni8ZnESRhVqaAiaE5qvIpRMzItisCTD7ZLJixEc/IxQFDfIxxEx9W7xUX1il6Ksh0IpKodCGLgfBmZ7eKIg6f+FCupRapZcXSgMKEXRAnrF+Yf33vGrC2U73BflTEzDlYWihKYQbXjFy1t0wfeR9VSh0H+kO8iuj/jrd12h8PB6sqDTgna3N40Fc78LhVIPxOi7Ve82rdNOqHGDM1g0X0+oQAyOPLCSxCYQiS8RimJe9to5/nIBdo+fT4/DhNI2ccSvX+Q2AlKFonjRi+rBWPFu08WwRG2yvqBey0moiAMHP9LO579C9aKIMR4rIjDHia34jIloa3R16BqIj3kmRhYqkSxUIlmoRLJQiWShEslCJQHwC8/yaZaMGJuQAAAAAElFTkSuQmCC" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, Image" />
+                          </uix:NClick.Target>
+                        </uix:NClick>
+                      </If.Then>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="a39218304dc723f956ddcfe2efa56ddc.png" Selector="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" />
+      </uix:NApplicationCard.TargetApp>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>
