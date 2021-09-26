@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GetNotebooks" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetNotebooks" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
@@ -8,10 +8,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1695,1299</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1694,1924</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetNotebooks_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="34">
+    <scg:List x:TypeArguments="x:String" Capacity="38">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -46,6 +46,10 @@
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>UiPath.Excel.Activities</x:String>
       <x:String>UiPath.Excel</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -77,13 +81,15 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Считываем ноутбуки из таблицы и фильтруем по заданным критериям" DisplayName="GetNotebooks" sap:VirtualizedContainerService.HintSize="476,1234" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Считываем ноутбуки из таблицы и фильтруем по заданным критериям" DisplayName="GetNotebooks" sap:VirtualizedContainerService.HintSize="476,1859" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTableFiltered" />
+      <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="dt_Notebooks" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_NotebooksFiltered" />
       <Variable x:TypeArguments="x:Double" Name="RatingMin" />
       <Variable x:TypeArguments="x:Int32" Name="ReviewsMin" />
-      <Variable x:TypeArguments="x:String" Name="ReportPath" />
+      <Variable x:TypeArguments="x:String" Name="ReportFolderPath" />
+      <Variable x:TypeArguments="x:String" Name="ReportName" />
+      <Variable x:TypeArguments="x:String" Name="Review" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -91,7 +97,8 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="434,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Начинаем считывание ноутбуков с таблицы&quot;]" />
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="434,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -112,48 +119,98 @@
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:String">[ReportPath]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[ReportFolderPath]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:String">[in_Config("ReportPath").ToString]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[ReportName]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[Today.ToString("dd.MM.yyyy") + ".xlsx"]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="434,475" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="Simulate" Version="V1">
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="434,382" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="Simulate" Version="V1">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,259" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='ImgSource'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Name'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Description'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column4' Name='Rating'&gt;&lt;Format xsi:type='NumberColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column5' Name='Rewiews'&gt;&lt;Format xsi:type='NumberColumnFormat' /&gt;&lt;/Column&gt;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='article' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='alt'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='a' /&gt;&lt;webctrl tag='img' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column4' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' idx='2' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column5' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" MaximumResults="0">
-              <uix:NExtractData.NextLink>
-                <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" FullSelectorArgument="&lt;webctrl aaname='Вперёд' tag='A' /&gt;" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
-              </uix:NExtractData.NextLink>
-              <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="911, 168, 1106, 14180" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" InformativeScreenshot="d585b65b24427b12655cb39284758c9f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
-              </uix:NExtractData.Target>
-            </uix:NExtractData>
-          </Sequence>
+          <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[dt_Notebooks]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='ImgSource'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Наименование'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Описание'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column4' Name='Оценка'&gt;&lt;Format xsi:type='NumberColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column5' Name='Отзывы'&gt;&lt;Format xsi:type='NumberColumnFormat' /&gt;&lt;/Column&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column6' Name='ReviewsUrl'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='article' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='src'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='a' /&gt;&lt;webctrl tag='img' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h3' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column4' attr='text'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column5' attr='text' name2='Column6' attr2='href'&gt;&lt;webctrl tag='article' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" MaximumResults="40">
+            <uix:NExtractData.NextLink>
+              <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" FullSelectorArgument="&lt;webctrl aaname='Вперёд' tag='A' /&gt;" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
+            </uix:NExtractData.NextLink>
+            <uix:NExtractData.Target>
+              <uix:TargetAnchorable DesignTimeRectangle="911, 168, 1106, 14180" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" InformativeScreenshot="d585b65b24427b12655cb39284758c9f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
+            </uix:NExtractData.Target>
+          </uix:NExtractData>
         </ActivityAction>
       </uix:NApplicationCard.Body>
       <uix:NApplicationCard.TargetApp>
         <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="cfc3ccc58afd702a4b3bbff6f2c16584.png" Selector="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" Url="https://market.yandex.ru*" />
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>
-    <ui:FilterDataTable DataTable="[ExtractDataTable]" DisplayName="Фильтруем таблицу по заданным критериям" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,160" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[ExtractDataTableFiltered]" SelectColumnsMode="Keep">
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="434,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="602,638" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_Notebooks]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,546" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Находим в отзывах их число" sap:VirtualizedContainerService.HintSize="526,427" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Matches DisplayName="Matches Число отзывов" sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[CurrentRow(&quot;Отзывы&quot;).ToString]" IsBuilderTabModified="False" Pattern="\d+" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
+                  <If Condition="[RegexResult.Count &gt; 0]" DisplayName="If Результат не пустой" sap:VirtualizedContainerService.HintSize="484,236" sap2010:WorkflowViewState.IdRef="If_1">
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Object">[CurrentRow("Отзывы")]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[RegexResult(0).ToString]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+          </ui:ForEachRow>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:FilterDataTable DataTable="[dt_Notebooks]" DisplayName="Фильтруем таблицу по заданным критериям" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,160" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dt_NotebooksFiltered]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument BooleanOperator="And" Operator="GTE">
             <ui:FilterOperationArgument.Column>
-              <InArgument x:TypeArguments="x:String">["Rating"]</InArgument>
+              <InArgument x:TypeArguments="x:String">["Оценка"]</InArgument>
             </ui:FilterOperationArgument.Column>
             <ui:FilterOperationArgument.Operand>
               <InArgument x:TypeArguments="x:Double">[RatingMin]</InArgument>
@@ -161,10 +218,10 @@
           </ui:FilterOperationArgument>
           <ui:FilterOperationArgument BooleanOperator="And" Operator="GTE">
             <ui:FilterOperationArgument.Column>
-              <InArgument x:TypeArguments="x:String">["Rewiews"]</InArgument>
+              <InArgument x:TypeArguments="x:String">["Отзывы"]</InArgument>
             </ui:FilterOperationArgument.Column>
             <ui:FilterOperationArgument.Operand>
-              <InArgument x:TypeArguments="x:Int32">[ReviewsMin]</InArgument>
+              <InArgument x:TypeArguments="x:Double">[RatingMin]</InArgument>
             </ui:FilterOperationArgument.Operand>
           </ui:FilterOperationArgument>
         </scg:List>
@@ -175,15 +232,36 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,196" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[ReportPath]">
+    <ui:AddDataColumn x:TypeArguments="x:String" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Отзыв" DataTable="[dt_NotebooksFiltered]" DisplayName="Add Data Column" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_NotebooksFiltered]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="434,232" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+          </ActivityAction.Argument>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Берем отзыв" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\GetReviews.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ReviewUrl">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow(&quot;RewiewsUrl&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="sd:DataRow" x:Key="in_Datarow">
+                <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="CurrentRow" />
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,196" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[ReportFolderPath + ReportName]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <ui:ExcelWriteRange AddHeaders="False" DataTable="[ExtractDataTableFiltered]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_1" SheetName="Sheet1" StartingCell="A1" />
+          <ui:ExcelWriteRange AddHeaders="True" DataTable="[dt_NotebooksFiltered]" DisplayName="Write Range Сохраняем отчет" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_1" SheetName="Отчет" StartingCell="A1" />
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Считывание ноутбуков с таблицы закончено&quot;]" />
   </Sequence>
 </Activity>
