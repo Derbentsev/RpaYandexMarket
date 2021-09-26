@@ -1,15 +1,18 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="test" this:test.in_RamFrom="1" this:test.in_RamTo="8" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="SetProcessorFilter" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_RamFrom" Type="InArgument(x:Int32)" />
-    <x:Property Name="in_RamTo" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Browser" Type="InArgument(ui:UiElement)" />
   </x:Members>
+  <this:SetProcessorFilter.in_Config>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:SetProcessorFilter.in_Config>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1697,1736</sap:VirtualizedContainerService.HintSize>
-  <sap2010:WorkflowViewState.IdRef>test_1</sap2010:WorkflowViewState.IdRef>
+  <sap:VirtualizedContainerService.HintSize>1697,905</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SetProcessorFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="36">
+    <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -31,25 +34,22 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
       <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Runtime.Serialization</x:String>
       <x:String>System.Xml.Serialization</x:String>
-      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
-      <x:String>System.Collections.ObjectModel</x:String>
-      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
-      <x:String>System.Activities.DynamicUpdate</x:String>
-      <x:String>UiPath.DataTableUtilities</x:String>
-      <x:String>System.Text.RegularExpressions</x:String>
-      <x:String>System.Reflection</x:String>
-      <x:String>System.Runtime.InteropServices</x:String>
-    </scg:List>
+    </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
+    <sco:Collection x:TypeArguments="AssemblyReference">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -82,81 +82,80 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
-    </scg:List>
+    </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="test" sap:VirtualizedContainerService.HintSize="678,1671" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Устанавливаем фильтры по производителю процессора" DisplayName="SetProcessorFilter" sap:VirtualizedContainerService.HintSize="376,536" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
-      <Variable x:TypeArguments="x:String" Name="RegexPatternt" />
+      <Variable x:TypeArguments="x:String" Name="ProcessorName" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="636,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[RegexPatternt]</OutArgument>
+        <OutArgument x:TypeArguments="x:String">[ProcessorName]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">["\d+"]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_Config("ProcessorName").ToString]</InArgument>
       </Assign.Value>
     </Assign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="636,1479" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Устанавливаю фильтр по процессору &quot; + ProcessorName]" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1263" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1166" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:Int32" Name="RamQuantityCurrent" />
+              <Variable x:TypeArguments="x:String" Default="AMD A10" Name="FilterNameCurrent" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NClick ClickType="Single" DisplayName="Click Показать всю RAM" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
+            <uix:NClick ClickType="Single" DisplayName="Click Показать все процессоры" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
               <uix:NClick.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="542, 753, 99, 26" ElementType="Button" FriendlyName="'Показать всё'" FullSelectorArgument="&lt;webctrl tag='DIV' innertext='Оперативная память*' /&gt;&lt;webctrl aaname='Показать*' parentid='search-prepack' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='DIV' innertext='Линейка процессора*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' type='' check:text='Показать всё' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAeCAYAAAAxbADwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFqSURBVGhD7dpBaoNAFMbxHsWjNYexZ5EeJRAEIQEVjKsBRRGSLOLGV970dajtSLWx9S2+H8xiJMnmHxPyMk8ksiyjy+Uiu+WOxyPdbjfZzXGgMAgokBXu5TI4Lk6apg/F4edfr1fZ/WAfvkd5ORCZiHaI47VZHBcDcSZtE+czxJmEOIohjmKIoxjiKIY4iiGOYoij2PZxYJKLU5YlNU0ju+XiOKb7/S47WIOLw+/6JEmo73u5Mp8xhoqikB2sxcVhbdvaQKfTyX5MzVn8eA4zDIO8CqxlFOcDj/75Tpqz8FH2d7xxQAfEUQxxFEMcxRBHMcRRDHEUQxzFvsWpqsqeYfNNA3yLZ3L8YxTWN4qT5zmdz2fqus5OqOcsHpbyCIdHP7AuF4fvGA7zGzws5UBL1K87d9rTHTCEERfnP4/j2jDPEdWyd0dzR9fAxeHvj0fi8PPnfvfUxpPAHtHdUWRkD9vE8cLf1V8QvQFXJqk6+Y7yjgAAAABJRU5ErkJggg==" InformativeScreenshot="d873d499e8a00e6ac0cbafe6ac7ee46e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" />
+                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="542, 753, 99, 26" ElementType="Button" FriendlyName="'Показать всё'" FullSelectorArgument="&lt;webctrl tag='DIV' innertext='Линейка процессора*' /&gt;&lt;webctrl aaname='Показать*' parentid='search-prepack' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='DIV' innertext='Линейка процессора*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' type='' check:text='Показать всё' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAeCAYAAAAxbADwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFqSURBVGhD7dpBaoNAFMbxHsWjNYexZ5EeJRAEIQEVjKsBRRGSLOLGV970dajtSLWx9S2+H8xiJMnmHxPyMk8ksiyjy+Uiu+WOxyPdbjfZzXGgMAgokBXu5TI4Lk6apg/F4edfr1fZ/WAfvkd5ORCZiHaI47VZHBcDcSZtE+czxJmEOIohjmKIoxjiKIY4iiGOYoij2PZxYJKLU5YlNU0ju+XiOKb7/S47WIOLw+/6JEmo73u5Mp8xhoqikB2sxcVhbdvaQKfTyX5MzVn8eA4zDIO8CqxlFOcDj/75Tpqz8FH2d7xxQAfEUQxxFEMcxRBHMcRRDHEUQxzFvsWpqsqeYfNNA3yLZ3L8YxTWN4qT5zmdz2fqus5OqOcsHpbyCIdHP7AuF4fvGA7zGzws5UBL1K87d9rTHTCEERfnP4/j2jDPEdWyd0dzR9fAxeHvj0fi8PPnfvfUxpPAHtHdUWRkD9vE8cLf1V8QvQFXJqk6+Y7yjgAAAABJRU5ErkJggg==" InformativeScreenshot="d873d499e8a00e6ac0cbafe6ac7ee46e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="FuzzySelector, Image" WaitForReadyArgument="Complete" />
               </uix:NClick.Target>
             </uix:NClick>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели RAM" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='11' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" MaximumResults="0">
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели процессора" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&lt;Format xsi:type='TextColumnFormat' /&gt;&lt;/Column&gt;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='12' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='label' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="Rows" MaximumResults="0">
               <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="542, -1270, 331, 6566" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="df779395993d2c37caf50b1c20ad7708.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
+                <uix:TargetAnchorable DesignTimeRectangle="542, -1670, 331, 6372" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="92e76b5c5681d548a854279bd1ce1b7c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
               </uix:NExtractData.Target>
             </uix:NExtractData>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,758" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,660" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                   </ActivityAction.Argument>
-                  <Sequence sap:VirtualizedContainerService.HintSize="526,637" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                    <Sequence.Variables>
-                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
-                    </Sequence.Variables>
+                  <Sequence sap:VirtualizedContainerService.HintSize="526,539" sap2010:WorkflowViewState.IdRef="Sequence_2">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:Matches sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[CurrentRow(&quot;Name&quot;).ToString]" IsBuilderTabModified="False" Pattern="[RegexPatternt]" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
                     <Assign sap:VirtualizedContainerService.HintSize="484,61" sap2010:WorkflowViewState.IdRef="Assign_1">
                       <Assign.To>
-                        <OutArgument x:TypeArguments="x:Int32">[RamQuantityCurrent]</OutArgument>
+                        <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
-                        <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString)]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
                       </Assign.Value>
                     </Assign>
-                    <If Condition="[RamQuantityCurrent &gt;= in_RamFrom And RamQuantityCurrent &lt;= in_RamTo]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
+                    <If Condition="[FilterNameCurrent.ToLower.Contains(ProcessorName.ToLower)]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
                       <If.Then>
-                        <uix:NClick ClickType="Single" DisplayName="Click Модель Ram" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
+                        <uix:NClick ClickType="Single" DisplayName="Click Модель процессора" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
                           <uix:NClick.Target>
-                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="590, -1629, 171, 18" ElementType="Text" FriendlyName="'AMD A10'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, RamQuantityCurrent)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEoAAAAYCAYAAABdlmuNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJfSURBVFhH7ZVRTsMwDIY5Sp/XU+wm7Al6A3aA7oEdYBxh2hBvE3eYqECIMwypE1eoSR2ncxyny2CP+aRQEju288ftbrqug578HH/e4N/MWQahnHKOPPfnuaMSGb5RjjzX59GO+nmdw3Q6NWMOu5YWOe0O5mN25AtWgc8P7B76NWU87Iw1FRfbjKcvWovhfFfmP4XPFatDP0/kG3WE7d0EyvsKqrKE6uUYKn3Yoq2M2c38+FKhvSwr2B6c/QjP9yVMlu80t3Rdi+u97/O3rEeZvz2ib4V7lvAe82+WWMNkYs5j/D7sqrCz+uSc0DvqsIZZUUC9b2F9W0Bxu4ZAZPIpcNTQ0PIJ2ov2GawPtOzWF+GOwablEzQL8tvXmKPek4GBPmRrNzOlTr0W3CfWVKG8oFgIPyjhxNzY52wjjub2beT+MaEMsXweDdRDzni8ZnESRhVqaAiaE5qvIpRMzItisCTD7ZLJixEc/IxQFDfIxxEx9W7xUX1il6Ksh0IpKodCGLgfBmZ7eKIg6f+FCupRapZcXSgMKEXRAnrF+Yf33vGrC2U73BflTEzDlYWihKYQbXjFy1t0wfeR9VSh0H+kO8iuj/jrd12h8PB6sqDTgna3N40Fc78LhVIPxOi7Ve82rdNOqHGDM1g0X0+oQAyOPLCSxCYQiS8RimJe9to5/nIBdo+fT4/DhNI2ccSvX+Q2AlKFonjRi+rBWPFu08WwRG2yvqBey0moiAMHP9LO579C9aKIMR4rIjDHia34jIloa3R16BqIj3kmRhYqkSxUIlmoRLJQiWShEslCJQHwC8/yaZaMGJuQAAAAAElFTkSuQmCC" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, Image" />
+                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="590, -1629, 171, 18" ElementType="Text" FriendlyName="'AMD A10'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, FilterNameCurrent)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEoAAAAYCAYAAABdlmuNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJfSURBVFhH7ZVRTsMwDIY5Sp/XU+wm7Al6A3aA7oEdYBxh2hBvE3eYqECIMwypE1eoSR2ncxyny2CP+aRQEju288ftbrqug578HH/e4N/MWQahnHKOPPfnuaMSGb5RjjzX59GO+nmdw3Q6NWMOu5YWOe0O5mN25AtWgc8P7B76NWU87Iw1FRfbjKcvWovhfFfmP4XPFatDP0/kG3WE7d0EyvsKqrKE6uUYKn3Yoq2M2c38+FKhvSwr2B6c/QjP9yVMlu80t3Rdi+u97/O3rEeZvz2ib4V7lvAe82+WWMNkYs5j/D7sqrCz+uSc0DvqsIZZUUC9b2F9W0Bxu4ZAZPIpcNTQ0PIJ2ov2GawPtOzWF+GOwablEzQL8tvXmKPek4GBPmRrNzOlTr0W3CfWVKG8oFgIPyjhxNzY52wjjub2beT+MaEMsXweDdRDzni8ZnESRhVqaAiaE5qvIpRMzItisCTD7ZLJixEc/IxQFDfIxxEx9W7xUX1il6Ksh0IpKodCGLgfBmZ7eKIg6f+FCupRapZcXSgMKEXRAnrF+Yf33vGrC2U73BflTEzDlYWihKYQbXjFy1t0wfeR9VSh0H+kO8iuj/jrd12h8PB6sqDTgna3N40Fc78LhVIPxOi7Ve82rdNOqHGDM1g0X0+oQAyOPLCSxCYQiS8RimJe9to5/nIBdo+fT4/DhNI2ccSvX+Q2AlKFonjRi+rBWPFu08WwRG2yvqBey0moiAMHP9LO579C9aKIMR4rIjDHia34jIloa3R16BqIj3kmRhYqkSxUIlmoRLJQiWShEslCJQHwC8/yaZaMGJuQAAAAAElFTkSuQmCC" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete" />
                           </uix:NClick.Target>
                         </uix:NClick>
                       </If.Then>
@@ -173,10 +172,11 @@
       </uix:NApplicationCard.TargetApp>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </uix:NApplicationCard>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Фильтр по процессору установлен&quot;]" />
   </Sequence>
 </Activity>

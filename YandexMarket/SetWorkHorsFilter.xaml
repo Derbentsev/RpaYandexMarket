@@ -1,16 +1,19 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="SetHddFilter" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="SetWorkHorsFilter" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_Browser" Type="InArgument(ui:UiElement)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Browser" Type="InArgument(ui:UiElement)" />
   </x:Members>
-  <this:SetHddFilter.in_Config>
+  <this:SetWorkHorsFilter.in_Config>
     <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
-  </this:SetHddFilter.in_Config>
+  </this:SetWorkHorsFilter.in_Config>
+  <this:SetWorkHorsFilter.in_Browser>
+    <InArgument x:TypeArguments="ui:UiElement" />
+  </this:SetWorkHorsFilter.in_Browser>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1697,1937</sap:VirtualizedContainerService.HintSize>
-  <sap2010:WorkflowViewState.IdRef>SetHddFilter_1</sap2010:WorkflowViewState.IdRef>
+  <sap:VirtualizedContainerService.HintSize>1695,1916</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SetWorkHorsFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="36">
       <x:String>System.Activities</x:String>
@@ -37,11 +40,11 @@
       <x:String>System.Text.RegularExpressions</x:String>
       <x:String>UiPath.UIAutomationNext.Enums</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
-      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
       <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Runtime.Serialization</x:String>
       <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
@@ -52,7 +55,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="50">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -85,15 +88,14 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Устанавливаем фильтр по размеру жесткого диска" DisplayName="SetHddFilter" sap:VirtualizedContainerService.HintSize="678,1872" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Добавляем фильтры по времени автономной работы" DisplayName="SetWorkHorsFilter" sap:VirtualizedContainerService.HintSize="678,1851" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
-      <Variable x:TypeArguments="x:String" Name="RegexPatternt" />
-      <Variable x:TypeArguments="x:Int32" Name="HddMax" />
-      <Variable x:TypeArguments="x:Int32" Name="HddMin" />
+      <Variable x:TypeArguments="x:Double" Name="WorkTimeMin" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -101,103 +103,81 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="636,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="636,98" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:Int32">[HddMin]</OutArgument>
+              <OutArgument x:TypeArguments="x:Double">[WorkTimeMin]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("HddMin").ToString)]</InArgument>
-            </ui:AssignOperation.Value>
-          </ui:AssignOperation>
-          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
-            <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:Int32">[HddMax]</OutArgument>
-            </ui:AssignOperation.To>
-            <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("HddMax").ToString)]</InArgument>
-            </ui:AssignOperation.Value>
-          </ui:AssignOperation>
-          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
-            <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:String">[RegexPatternt]</OutArgument>
-            </ui:AssignOperation.To>
-            <ui:AssignOperation.Value>
-              <InArgument x:TypeArguments="x:String">\d+</InArgument>
+              <InArgument x:TypeArguments="x:Double">[CInt(in_Config("WorkTimeMin").ToString)]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="636,1549" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="636,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Начинаю установку фильтра по времени работы&quot;]" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="636,1328" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1112" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NClick ClickType="Single" DisplayName="Click Показать все HDD" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
-              <uix:NClick.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="542, 753, 99, 26" ElementType="Button" FriendlyName="'Показать всё'" FullSelectorArgument="&lt;webctrl tag='DIV' innertext='Общий объем накопителей HDD*' /&gt;&lt;webctrl aaname='Показать*' parentid='search-prepack' tag='BUTTON' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='DIV' innertext='Линейка процессора*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' type='' check:text='Показать всё' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAeCAYAAAAxbADwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFqSURBVGhD7dpBaoNAFMbxHsWjNYexZ5EeJRAEIQEVjKsBRRGSLOLGV970dajtSLWx9S2+H8xiJMnmHxPyMk8ksiyjy+Uiu+WOxyPdbjfZzXGgMAgokBXu5TI4Lk6apg/F4edfr1fZ/WAfvkd5ORCZiHaI47VZHBcDcSZtE+czxJmEOIohjmKIoxjiKIY4iiGOYoij2PZxYJKLU5YlNU0ju+XiOKb7/S47WIOLw+/6JEmo73u5Mp8xhoqikB2sxcVhbdvaQKfTyX5MzVn8eA4zDIO8CqxlFOcDj/75Tpqz8FH2d7xxQAfEUQxxFEMcxRBHMcRRDHEUQxzFvsWpqsqeYfNNA3yLZ3L8YxTWN4qT5zmdz2fqus5OqOcsHpbyCIdHP7AuF4fvGA7zGzws5UBL1K87d9rTHTCEERfnP4/j2jDPEdWyd0dzR9fAxeHvj0fi8PPnfvfUxpPAHtHdUWRkD9vE8cLf1V8QvQFXJqk6+Y7yjgAAAABJRU5ErkJggg==" InformativeScreenshot="d873d499e8a00e6ac0cbafe6ac7ee46e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete" />
-              </uix:NClick.Target>
-            </uix:NClick>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели HDD" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='16' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="Rows" MaximumResults="0">
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Время работы" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='22' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='label' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" MaximumResults="0">
               <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="542, -2528, 331, 6785" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="fc5b6b0ccaf5e598558bdf91e7155f2b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
+                <uix:TargetAnchorable DesignTimeRectangle="542, -3523, 331, 6028" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="73344f8415409901f4090b07079af8c1.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
               </uix:NExtractData.Target>
             </uix:NExtractData>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,827" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,812" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                   </ActivityAction.Argument>
-                  <Sequence sap:VirtualizedContainerService.HintSize="526,706" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <Sequence sap:VirtualizedContainerService.HintSize="526,691" sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <Sequence.Variables>
-                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
                       <Variable x:TypeArguments="x:String" Name="FilterNameCurrent" />
-                      <Variable x:TypeArguments="x:Int32" Name="FilterQuantityCurrent" />
+                      <Variable x:TypeArguments="x:Int32" Name="FilterQuantityCurrentMin" />
+                      <Variable x:TypeArguments="x:Int32" Name="FilterQuantityCurrentMax" />
                     </Sequence.Variables>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:Matches sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[CurrentRow(&quot;Name&quot;).ToString]" IsBuilderTabModified="False" Pattern="[RegexPatternt]" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
-                    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="484,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
-                      <ui:MultipleAssign.AssignOperations>
-                        <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
-                          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
-                            <ui:AssignOperation.To>
-                              <OutArgument x:TypeArguments="x:Int32">[FilterQuantityCurrent]</OutArgument>
-                            </ui:AssignOperation.To>
-                            <ui:AssignOperation.Value>
-                              <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString)]</InArgument>
-                            </ui:AssignOperation.Value>
-                          </ui:AssignOperation>
-                          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
-                            <ui:AssignOperation.To>
-                              <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
-                            </ui:AssignOperation.To>
-                            <ui:AssignOperation.Value>
-                              <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
-                            </ui:AssignOperation.Value>
-                          </ui:AssignOperation>
-                        </scg:List>
-                      </ui:MultipleAssign.AssignOperations>
-                    </ui:MultipleAssign>
-                    <If Condition="[FilterQuantityCurrent &gt;= HddMin And FilterQuantityCurrent &lt;= HddMax]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
+                    <Assign sap:VirtualizedContainerService.HintSize="484,61" sap2010:WorkflowViewState.IdRef="Assign_1">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Парсим часы работы" sap:VirtualizedContainerService.HintSize="484,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Utils\ParseWorkHours.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Text">
+                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow(&quot;Name&quot;).ToString" />
+                        </InArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMin">
+                          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="FilterQuantityCurrentMin" />
+                        </OutArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMax">
+                          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="FilterQuantityCurrentMax" />
+                        </OutArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <If Condition="[WorkTimeMin &lt;= FilterQuantityCurrentMax]" DisplayName="If нужное время автономной работы" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
                       <If.Then>
-                        <uix:NClick ClickType="Single" DisplayName="Click Модель Ram" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
+                        <uix:NClick ClickType="Single" DisplayName="Click Фильтр" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
                           <uix:NClick.Target>
-                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" DesignTimeRectangle="590, -1629, 171, 18" ElementType="Text" FriendlyName="'AMD A10'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl parentid='search-prepack' tag='DIV' innertext='Общий объем накопителей HDD*' /&gt;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, FilterNameCurrent)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAEoAAAAYCAYAAABdlmuNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJfSURBVFhH7ZVRTsMwDIY5Sp/XU+wm7Al6A3aA7oEdYBxh2hBvE3eYqECIMwypE1eoSR2ncxyny2CP+aRQEju288ftbrqug578HH/e4N/MWQahnHKOPPfnuaMSGb5RjjzX59GO+nmdw3Q6NWMOu5YWOe0O5mN25AtWgc8P7B76NWU87Iw1FRfbjKcvWovhfFfmP4XPFatDP0/kG3WE7d0EyvsKqrKE6uUYKn3Yoq2M2c38+FKhvSwr2B6c/QjP9yVMlu80t3Rdi+u97/O3rEeZvz2ib4V7lvAe82+WWMNkYs5j/D7sqrCz+uSc0DvqsIZZUUC9b2F9W0Bxu4ZAZPIpcNTQ0PIJ2ov2GawPtOzWF+GOwablEzQL8tvXmKPek4GBPmRrNzOlTr0W3CfWVKG8oFgIPyjhxNzY52wjjub2beT+MaEMsXweDdRDzni8ZnESRhVqaAiaE5qvIpRMzItisCTD7ZLJixEc/IxQFDfIxxEx9W7xUX1il6Ksh0IpKodCGLgfBmZ7eKIg6f+FCupRapZcXSgMKEXRAnrF+Yf33vGrC2U73BflTEzDlYWihKYQbXjFy1t0wfeR9VSh0H+kO8iuj/jrd12h8PB6sqDTgna3N40Fc78LhVIPxOi7Ve82rdNOqHGDM1g0X0+oQAyOPLCSxCYQiS8RimJe9to5/nIBdo+fT4/DhNI2ccSvX+Q2AlKFonjRi+rBWPFu08WwRG2yvqBey0moiAMHP9LO579C9aKIMR4rIjDHia34jIloa3R16BqIj3kmRhYqkSxUIlmoRLJQiWShEslCJQHwC8/yaZaMGJuQAAAAAElFTkSuQmCC" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete" />
+                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;glfilter=13313409%3A13317045%2C13317068%2C13317069%2C13317064%2C14012697%2C16653266%2C17760188%2C17760189%2C13317087%2C13317082%2C15885200%2C17317005%2C15363137%2C16653264%2C15488782%2C16604417&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="568, 894, 31, 20" ElementType="Text" FriendlyName="'2 ГБ'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl tag='DIV' innertext='Время автономной работы*' /&gt;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, FilterNameCurrent)]" FuzzySelectorArgument="&lt;webctrl aaname='2 ГБ' parentid='search-prepack' tag='SPAN' type='' check:text='2 ГБ' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACMAAAAYCAYAAABwZEQ3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADaSURBVEhL7ZTLDcMgDEA7CqOFYcgsKKNEYg0OWcIlqRFQbCvKp83BT+JAMPAwDi94ECrDoTIcncwyWTDGlDYGHKFYwA9VbN0Gn0YT0YOlxteWY5BGZhNpAgI4YlIBZSRhlHEz9gVamUhsObt0Cgs+Yr/hRhkScbFfyzwnM7jZBTXTF3B/QFlmy4p0quOZCWMvxMvkE0kbnbkm/G6nknNaZpfIypma+TwbsgxeTR3Ec2Nm8uvL18g3R2VwnnEpP4VKJgfQjc7UfpluTeIP5Qv4D6gMh8pwqAwNwBuk8jB67ljlogAAAABJRU5ErkJggg==" InformativeScreenshot="db700dfe687075364121d34ab1bc2b82.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete" />
                           </uix:NClick.Target>
                         </uix:NClick>
                       </If.Then>
@@ -205,6 +185,12 @@
                   </Sequence>
                 </ActivityAction>
               </ui:ForEachRow.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ForEachRow>
           </Sequence>
         </ActivityAction>
@@ -219,5 +205,6 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </uix:NApplicationCard>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="636,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Установка фильтра по времени работы закончена&quot;]" />
   </Sequence>
 </Activity>
