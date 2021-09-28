@@ -1,0 +1,15 @@
+﻿{
+  "Id": "LR5WJDnNj0ilI9qXjokx2w",
+  "Reference": "Wxdt7rtM0kGORdIFAAeUoQ/LR5WJDnNj0ilI9qXjokx2w",
+  "ParentRef": "Wxdt7rtM0kGORdIFAAeUoQ/JpnAa5_N6keiFz7t1PO17Q",
+  "Name": "Яндекс.Маркет: Ноутбуки",
+  "Type": "Screen",
+  "Created": "2021-09-28T13:41:44.2472806Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=21.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "Updated": "2021-09-28T14:26:23.794042Z",
+  "UpdatedBy": [
+    "UiPath.Platform, Version=21.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

@@ -1,0 +1,14 @@
+﻿{
+  "Id": "85GkuddZ00eZVvVu2noYEg",
+  "Reference": "Wxdt7rtM0kGORdIFAAeUoQ/85GkuddZ00eZVvVu2noYEg",
+  "Name": "Яндекс.Маркете: Ноутбуки",
+  "Type": "App",
+  "Created": "2021-09-28T13:41:44.1810201Z",
+  "CreatedBy": [
+    "UiPath.Platform, Version=21.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "Updated": "2021-09-28T14:10:16.5586168Z",
+  "UpdatedBy": [
+    "UiPath.Platform, Version=21.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

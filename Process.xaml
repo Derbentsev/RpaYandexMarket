@@ -12,7 +12,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1697,1415</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1054,1535</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Process_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -71,22 +71,21 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="840,1350" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="834,1470" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Настраиваем общие фильтры" sap:VirtualizedContainerService.HintSize="798,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\SetCommonFilters.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Настраиваем общие фильтры" sap:VirtualizedContainerService.HintSize="792,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\SetCommonFilters.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="ui:UiElement" x:Key="in_Browser">[in_Browser]</InArgument>
         <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <Flowchart DisplayName="Настраиваем частные фильтры" sap:VirtualizedContainerService.HintSize="798,954" sap2010:WorkflowViewState.IdRef="Flowchart_3">
+    <Flowchart DisplayName="Настраиваем частные фильтры" sap:VirtualizedContainerService.HintSize="792,922" sap2010:WorkflowViewState.IdRef="Flowchart_3">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -94,8 +93,8 @@
           <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
           <av:Size x:Key="ShapeSize">60,75</av:Size>
           <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,107.5 298.641666666667,107.5 298.641666666667,116.5</av:PointCollection>
-          <x:Double x:Key="Width">764</x:Double>
-          <x:Double x:Key="Height">918</x:Double>
+          <x:Double x:Key="Width">758</x:Double>
+          <x:Double x:Key="Height">885.5</x:Double>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Flowchart.StartNode>
@@ -137,10 +136,7 @@
           </FlowStep>
         </FlowDecision.True>
         <FlowDecision.False>
-          <FlowDecision x:Name="__ReferenceID3" DisplayName="Ram?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
-            <FlowDecision.Condition>
-              <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="String.IsNullOrEmpty(in_Config(&quot;RamMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;RamMax&quot;).ToString)" />
-            </FlowDecision.Condition>
+          <FlowDecision x:Name="__ReferenceID3" Condition="[String.IsNullOrEmpty(in_Config(&quot;RamMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;RamMax&quot;).ToString)]" DisplayName="Ram?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -176,10 +172,7 @@
               </FlowStep>
             </FlowDecision.True>
             <FlowDecision.False>
-              <FlowDecision x:Name="__ReferenceID2" DisplayName="HDD?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
-                <FlowDecision.Condition>
-                  <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="String.IsNullOrEmpty(in_Config(&quot;HddMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;HddMax&quot;).ToString)" />
-                </FlowDecision.Condition>
+              <FlowDecision x:Name="__ReferenceID2" Condition="[String.IsNullOrEmpty(in_Config(&quot;HddMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;HddMax&quot;).ToString)]" DisplayName="HDD?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -198,10 +191,14 @@
                         <av:PointCollection x:Key="ConnectorLocation">260,556.52 300,556.52 300,586.5</av:PointCollection>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Фильтр по ёмкости ЖД" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\SetHddFilter.xaml">
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Фильтр по ёмкости SSD" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\SetSsdFilter.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
-                        <InArgument x:TypeArguments="ui:UiElement" x:Key="in_Browser">[in_Browser]</InArgument>
-                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                        <InArgument x:TypeArguments="ui:UiElement" x:Key="in_Browser">
+                          <mva:VisualBasicValue x:TypeArguments="ui:UiElement" ExpressionText="in_Browser" />
+                        </InArgument>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                        </InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -215,10 +212,7 @@
                   </FlowStep>
                 </FlowDecision.True>
                 <FlowDecision.False>
-                  <FlowDecision x:Name="__ReferenceID1" DisplayName="Вес?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
-                    <FlowDecision.Condition>
-                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="String.IsNullOrEmpty(in_Config(&quot;WeightMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;WeightMax&quot;).ToString)" />
-                    </FlowDecision.Condition>
+                  <FlowDecision x:Name="__ReferenceID1" Condition="[String.IsNullOrEmpty(in_Config(&quot;WeightMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;WeightMax&quot;).ToString)]" DisplayName="Вес?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -254,10 +248,7 @@
                       </FlowStep>
                     </FlowDecision.True>
                     <FlowDecision.False>
-                      <FlowDecision x:Name="__ReferenceID0" DisplayName="Время работы?" sap:VirtualizedContainerService.HintSize="90,87" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
-                        <FlowDecision.Condition>
-                          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="String.IsNullOrEmpty(in_Config(&quot;WorkTimeMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;WorkTimeMax&quot;).ToString)" />
-                        </FlowDecision.Condition>
+                      <FlowDecision x:Name="__ReferenceID0" Condition="[String.IsNullOrEmpty(in_Config(&quot;WorkTimeMin&quot;).ToString) And String.IsNullOrEmpty(in_Config(&quot;WorkTimeMax&quot;).ToString)]" DisplayName="Время работы?" sap:VirtualizedContainerService.HintSize="90,87" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -306,7 +297,14 @@
       <x:Reference>__ReferenceID0</x:Reference>
       <x:Reference>__ReferenceID8</x:Reference>
     </Flowchart>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Отправляем отчет через Telegram" sap:VirtualizedContainerService.HintSize="798,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Telegram\SendMessage.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Считываем таблицу с ноутбуками" sap:VirtualizedContainerService.HintSize="792,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\GetNotebooks.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+        </InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Отправляем отчет через Telegram" sap:VirtualizedContainerService.HintSize="792,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Telegram\SendMessage.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
