@@ -1,18 +1,24 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="SetFilter" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetFilterData" this:GetFilterData.in_TableId="9" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_Browser" Type="InArgument(ui:UiElement)" />
+    <x:Property Name="out_ExtractDataTable" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_ShowAllName" Type="InArgument(x:String)" />
+    <x:Property Name="in_TableId" Type="InArgument(x:String)" />
   </x:Members>
-  <this:SetFilter.in_Config>
+  <this:GetFilterData.in_Config>
     <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
-  </this:SetFilter.in_Config>
+  </this:GetFilterData.in_Config>
+  <this:GetFilterData.in_ShowAllName>
+    <InArgument x:TypeArguments="x:String" />
+  </this:GetFilterData.in_ShowAllName>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1054,1970</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1078,1332</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="x:String">
+    <scg:List x:TypeArguments="x:String" Capacity="33">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -46,10 +52,10 @@
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>UiPath.Platform.ObjectLibrary</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
-    </sco:Collection>
+    </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <sco:Collection x:TypeArguments="AssemblyReference">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -75,19 +81,28 @@
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-    </sco:Collection>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SetFilter" sap:VirtualizedContainerService.HintSize="678,1905" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetFilterData" sap:VirtualizedContainerService.HintSize="476,1267" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="ShowAllName" />
       <Variable x:TypeArguments="x:String" Name="ProcessorName" />
+      <Variable x:TypeArguments="x:String" Name="TableMetadata" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="636,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="434,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -100,25 +115,48 @@
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:String">[ShowAllName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[in_ShowAllName]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:String">Линейка процессора</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[TableMetadata]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String" xml:space="preserve">&lt;extract&gt;
+	&lt;column exact='1' name='Column0' attr='text'&gt;
+		&lt;webctrl tag='div' idx='{0}' /&gt;
+		&lt;webctrl tag='div' idx='1' /&gt;
+		&lt;webctrl tag='div' idx='1' /&gt;
+		&lt;webctrl tag='div' idx='1' /&gt;
+		&lt;webctrl tag='div' /&gt;
+	&lt;/column&gt;
+&lt;/extract&gt;</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[TableMetadata]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[TableMetadata.Replace("{0}", in_TableId)]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="636,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Устанавливаю фильтр по процессору &quot; + ProcessorName]" />
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser Chrome" sap:VirtualizedContainerService.HintSize="636,1382" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" Version="V1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Считываю таблицу фильтров по &quot; + in_ShowAllName]" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser Chrome" sap:VirtualizedContainerService.HintSize="434,682" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1" WindowResize="Maximize">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="602,1166" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,466" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
               <Variable x:TypeArguments="x:String" Name="FilterNameCurrent" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
@@ -126,55 +164,16 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NClick ClickType="Single" DisplayName="Click ShowAll" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left">
+            <uix:NClick ClickType="Single" DisplayName="Click Развернуть всё" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_3" KeyModifiers="None" MouseButton="Left">
               <uix:NClick.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;onstock=1&amp;how=aprice&amp;local-offers-first=0" ContentHash="zADDsE5R3Ue4ZICZo3TH-Q" DesignTimeRectangle="222, 571, 99, 26" ElementType="Button" FriendlyName="'Показать всё'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl tag='FIELDSET' innertext='{0}*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' /&gt;&quot;, ShowAllName)]" FuzzySelectorArgument="[String.Format(&quot;&lt;webctrl tag='FIELDSET' innertext='{0}*' /&gt;&lt;webctrl aaname='Показать всё' parentid='search-prepack' tag='BUTTON' type='' check:text='Показать всё' /&gt;&quot;, ShowAllName)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAeCAYAAAAxbADwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI8SURBVGhD7ZZBjsIwDEXnVnOUOQd7LsGeS7DqCViwQ12wZY+4Q6aN08bfcdJRAMkj+UmRaOM69v9p6FdwzOLmGMbNMYybYxg3xzBujmHcHMO4OYYBc8bjOXz/tMY1jCnWeY3ncJn0vITTA39zSnP2t/BM1xxK4Oa8C3oRSE/67eb8K1405x4OcOxJ92n+wB8arxR7vNP14xZ2kKMSX5ufKWJyHVQ3n5MxSo0tlHr0TSu1OYfdwMSRfS96MF4wJy3OklIMN0g2Tte8yPGIhsocz+EGjZd1PMJpj+LwIyNTrk3IGjeI5sj1hbhJeMw5xQ24IXMtSo6JbnNqsXgfG2/lz2yIFRtDQwvUmE+Zk7RZ+9KFzqR5qUPMizV3mtMoAIrPjZc7vkZbrD/l6TCHHz/N/IU5Mm+7/modytvWaU6t0QnYAdi4WnAqCsWRsSxPdUPg83IX1mum+3y95huurbV5pDEq/S7jDeb0vjm6YJinFAtI4qzzqVkQPd7rNwc3mAD6I6JuSs86W/OZ7v+ceK3EYg5eiHLWaiJK8QsozyqyIlZrI3zCHIxvbNzI1nym25ylKb5IKYpsXDxTGJHm2b1x+lqDesSxUay5Hhu95iibiKOYg2/ORNHXzJR3+VpL87IW+eX6gjkzWUwauiBQZCpsXWe5jmPOj28GrbvM08CmRUzMq6y7YQ7PXzVmBupdhtRlYt0keUA9yrysDcxxbOHmGMbNMYybYxg3xzBujmHcHMO4OYZxcwzj5pglhF+2sSRNi2O2HQAAAABJRU5ErkJggg==" InformativeScreenshot="9891192e8add263ffa6e681da117cffa.png" Reference="Wxdt7rtM0kGORdIFAAeUoQ/qS7i12qGqkWoVYUc4jnqyw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" />
+                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/filters?text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;hid=91013&amp;cpa=0&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="228, 539, 412, 45" FriendlyName="'Линейка процессора'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' tag='H4' /&gt;&quot;, in_ShowAllName)]" FuzzySelectorArgument="&lt;webctrl aaname='{{ShowAllName}}' tag='H4' type='' check:text='Линейка процессора' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAaAAAAAxCAYAAACce30LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATJSURBVHhe7do9UuswFIbhrDEzbIhhK7ABGgoaGm5BAQUr4BZpaGhpdH1kyZaOpFhxfs4deJ8ZD7EtWz+ZOV8csnEAABgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACZ+XAA9X2/cZlPfbv6ERgb8uK5u3U52/t66rfF4AMDazwyg6+ewF/wXBf/Z3SRhWIwRAH4ZAggAYOJsAfT6+ure3t7CXp8112h9ATQ+jehA2t1ts6/q/H782iyqhVk4Vn+62bnbq43b3mV3ce7PjW87Hff7N8PIZvHrxNhX3J82PbZUuH9tm8Y+9TmOcWpTeTqLa9NqU12rxjrn89i627/hxEQ9LQ5bvn4L5/X7oda1e97Ffcq5AFjvbAG02+3cw8ODe3l5cd/f3+FonZyXdtL+8/MzHF0jFJQ1AZQUm3i8K4DC/lwA9RhqATQX0GYA+f2kOEs/2bzCPfRcI30/occe+thepSEQ7pvMewyfSpuk794AGsNnYZ7qGr+Gd+GKzvPperf6XJr383V6vrYOAI5x1q/gvr6+3OPjo3t6emqGkByX89JO2h9nbQCF64aClLZbDqB4nWqTFdWxTVEQQ1/1ABrHl4dWqV70g+x+gV4H36bST9quWLtAHe8KoNBffq/0PWu8f5O159XxnnlXlYEKYL2z/w8oBow83eiAkX05vi+gDjMWmuXCkheS8ZPtUKx7imrWphEUWRs1Jl/8JJzUtVNgLBXZ2WkCqPaJPhlbs00+r54AmtZ53J2MgSzX5u1LfeeL92OQja9n3lVL/QM4xEV+hCDhIv/fkbCRr+bEx8eH35fjpwkf0SggewMoeV0LoGG/tqXta+dlG++TFur0tRqrL4rx2rJIi/x/J2E7OoBqfc3jbIVGbBODsieAquOPm1xbvE/KEeezeXTM22u8v83+ARzkIgEUvb+/u/v7e/9DA/kr+6eVF7xJUZjmdr4oxqcN1a5aVLM2jf4yqphP96sFkBTFUNhVv2MBzT+114t+0B1AF34Cao3XW1rPvvPTmiayvnvmHV7nT6JL/QM4xEUDSMiTj4SP/D25WtEVrQC6Vu0PDqD8KaAuFOqhr21W9FSxTMce+kgLaRaUXj2oJrW1qAZQpWBn7RpFt2et9LXNwh8trefyepfrJNR1PfP2r9VYw3XFWgBY5eIBdE714jPQhTcUxqKY9BRVfa9GMZt/QRWKX9FmTwCJrNiVYePHNpw/PoAavwZL1nHsq6PNUgBNa1EZlwqH+RoxXBd/5bZ0PswxXevxqz+9tgvzLvoJ54u+Aaz1QwKoLNAZXXh1sYlUu64AEuGYD4SwzQWwNbZxDM0AGoyFM7aJxTs5VrlmUjunxz61ye9dC/Ep8BptivN6S9rHec1bfZxpm6X13n9e3b933r5deo+xfRpuANb7UU9AONC+ADuh5pOplQvNG8B+BNBvRgABMEQA/Wa/tRATQMB/gQACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYMC5f2CrzxfPyVxNAAAAAElFTkSuQmCC" InformativeScreenshot="275286890d23aadb99d206c84bef14fa.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" />
               </uix:NClick.Target>
             </uix:NClick>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели процессора" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='9' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' innertext='Линейка процессора*' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="Rows" MaximumResults="0">
+            <uix:NExtractData AppendResults="False" ContinueOnError="False" DataTable="[out_ExtractDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='New column 0'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="[TableMetadata]" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" LimitExtractionTo="Rows" MaximumResults="0">
               <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="222, -970, 331, 4570" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="ef1947d9f4fff18cf781ac6f9cf6f260.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
+                <uix:TargetAnchorable DesignTimeRectangle="222, -421, 487, 1876" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;section&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" InformativeScreenshot="f0ab699b996c2912fbee406c2b874aaa.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
               </uix:NExtractData.Target>
             </uix:NExtractData>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="560,660" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
-              <ui:ForEachRow.Body>
-                <ActivityAction x:TypeArguments="sd:DataRow">
-                  <ActivityAction.Argument>
-                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-                  </ActivityAction.Argument>
-                  <Sequence sap:VirtualizedContainerService.HintSize="526,539" sap2010:WorkflowViewState.IdRef="Sequence_2">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Assign sap:VirtualizedContainerService.HintSize="484,61" sap2010:WorkflowViewState.IdRef="Assign_1">
-                      <Assign.To>
-                        <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
-                      </Assign.To>
-                      <Assign.Value>
-                        <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
-                      </Assign.Value>
-                    </Assign>
-                    <If Condition="[FilterNameCurrent.ToLower.Contains(ProcessorName.ToLower)]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
-                      <If.Then>
-                        <uix:NClick ClickType="Single" DisplayName="Click FilterName" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left">
-                          <uix:NClick.Target>
-                            <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;onstock=1&amp;local-offers-first=0" ContentHash="7_6qUymlhUmluK3vsFEw4w" DesignTimeRectangle="269, -897, 171, 18" ElementType="Text" FriendlyName="'FilterName'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' /&gt;&quot;, ShowAllName)]" FuzzySelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' parentid='search-prepack' tag='SPAN' type='' check:text='AMD Ryzen 3' /&gt;&quot;, ShowAllName)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGUAAAAVCAYAAABfXiAOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJxSURBVGhD7ZVtboMwDIZ3FI5WDkPPgjgKUq/RH7sES2Ib/JnSrptSxCtFm8AO9vs46ddyqjmdUBrUCaVBnVAaVAjle+qXruvS6pfxjg+57uPS194X3ZbBxHwv4yU/c9ZlTG9rquRebxjTuOZB1W79C6Bg85e+GN9PjlUrlOB9kg8W9zYmkuE1yFEuwm8eTK5T9gceyWc+FDR8mAmOM8EMStcN6XNaZHJee6BkVb5XFOd6zX2GYKD4YLtQoEE0uhw3p1kCN8Ffc1oob9L5NShJ0feKKrksLwbE8s01govvLQZPvUMzhzn9d2Ux7oDWtAuKbtwmFa2nCYsS062bfwIK7utfiXGuGCSs2cSVvQPgCCn3U2TqCHxJV/ya86g3R7JukIXCzCZZ05N4nG6Ig/gPKPh9/hymVzZbDHCvRg0Rv6NjRS/+sHoma0FMrs/5RpKB4hZujE0S8KRZxRBq8C+gUENsmXgzXJDr7WuNfHw7UMy2P2gPFCEcKL6PghI3nZcoUjdN5s/B871QnCI32VzvRIBUrKkD5Q0BPtP904La3gQlSfcgoZRi/A3NCdJQsMhSOI97Ekq9KSfXMxXF9xKndxXuZ64Q33Cp90HROQKKMZ5Lm2ug0Oaq0GegVAwG+bnw3fgUDHNgcngq64MDevNJYb4zKFBIbAgUsb53oLjaCwX3C4eiKDILarPPMT6/M0ZFOSgEpv24XamXF6DkPXV/zmBsUIx5VnD3YcxvoWRD1Hq4VwglCZvT7+j0mhyK14vH0aCwtUF67aSAh3xZz9UP/QG1d3ga0uGh+D/wbeugUNgVWf2NalPHv74+UCeU5rQsP3hM6HA0yjNNAAAAAElFTkSuQmCC" InformativeScreenshot="be297bc9341167790a4fc2513ad5fe4d.png" Reference="Wxdt7rtM0kGORdIFAAeUoQ/LySx7yPmxUiiMUz5MjDQQg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector, Image" />
-                          </uix:NClick.Target>
-                        </uix:NClick>
-                      </If.Then>
-                    </If>
-                  </Sequence>
-                </ActivityAction>
-              </ui:ForEachRow.Body>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </ui:ForEachRow>
           </Sequence>
         </ActivityAction>
       </uix:NApplicationCard.Body>
@@ -188,6 +187,6 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </uix:NApplicationCard>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="636,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Фильтр по процессору установлен&quot;]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Таблица фильтров считана&quot;]" />
   </Sequence>
 </Activity>

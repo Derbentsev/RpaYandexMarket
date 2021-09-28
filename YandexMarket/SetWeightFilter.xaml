@@ -9,7 +9,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1697,931</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1078,1390</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetWeightFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -87,20 +87,19 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SetWeightFilter" sap:VirtualizedContainerService.HintSize="376,574" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="SetWeightFilter" sap:VirtualizedContainerService.HintSize="476,1325" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Double" Default="1" Name="WeightMin" />
-      <Variable x:TypeArguments="x:Double" Default="3.4" Name="WeightMax" />
+      <Variable x:TypeArguments="x:Double" Name="WeightMin" />
+      <Variable x:TypeArguments="x:Double" Name="WeightMax" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="434,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -122,8 +121,8 @@
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Начинаю установку фильтра по весу&quot;]" />
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Начинаю установку фильтра по весу&quot;]" />
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser" sap:VirtualizedContainerService.HintSize="434,802" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" Version="V1">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -135,9 +134,9 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into Вес от" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_1" Text="[WeightMin.ToString]">
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into Вес от" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_1" Text="[WeightMin.ToString]" Timeout="1">
               <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;glfilter=15938685%3A15938700%2C15938704%2C15938705%2C15938706&amp;glfilter=13313409%3A13317045%2C13317068%2C13317069%2C13317064%2C14012697%2C16653266%2C17760188%2C17760189%2C13317087%2C13317082%2C15885200%2C17317005%2C15363137%2C16653264%2C15488782%2C16604417&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="542, 787, 159, 35" ElementType="InputBox" FriendlyName="'INPUT 23674510from'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' name='Вес от' /&gt;" FuzzySelectorArgument="&lt;webctrl id='23674510from' tag='INPUT' type='text' aaname='от' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAKMAAAAnCAYAAABjTfhOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHcSURBVHhe7djdbYMwFEDhTtOXLJYMwBTOEijPyQJlhUqR6BCNMoQL+Iq/GOIEg6/U80l+CFzejmzIhwWUIEao0cX488lipVliGCOwNWKEGsQINYgRahAj1CBGqEGMUIMYoQYxQg3dMd5sYTKbZbJMUV157vZlumcyYwvPQyEz2JjeGCXEUznx289F1ovrVlgzii1kBgmojbHMH3esp9GUNq92OvM1HGjia3fVkBkkoTVGfxxudxyH1JqKtQk7rzKshMwgjWgx/p7tYbezu3YZe5Vbj/e6dbjcZWioPPmO5CdH9Wxocj1kBmlEiVFi64d1Pdax9YIUzfX92foT7LwV49wR3IYWMoMklsd4t+d9FdhxnJ3/+roxynP9qJqdcHgtZAYJLI/xas3EcXu/HB7CWzvGmotNVv3e6TmCQ2awscUxyhFtvuV3TxPj6KgOjfGtD5gJ7gie/zgJmcHKtO6M8f7aGe+mITNIYnmMEljkd8Y2kHZ3fOWI7nY434dJyAwSiBHjGl/TjgTYf7eTO47b5fJRn4P3wYmjN2QGG4sSY23uf8ae12LEvxItRmApYoQaxAg1iBFqECPUIEaoQYxQgxihBjFCDWKEGsQINSZjZLFSLNHFCCRGjFDC2j/De0r+T+lomwAAAABJRU5ErkJggg==" InformativeScreenshot="f011ed71f14f37f13bb87025530c13e9.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete">
+                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;glfilter=15938685%3A15938700%2C15938704%2C15938705%2C15938706&amp;glfilter=13313409%3A13317045%2C13317068%2C13317069%2C13317064%2C14012697%2C16653266%2C17760188%2C17760189%2C13317087%2C13317082%2C15885200%2C17317005%2C15363137%2C16653264%2C15488782%2C16604417&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="542, 787, 159, 35" ElementType="InputBox" FriendlyName="'INPUT 23674510from'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' name='Вес от' /&gt;" FuzzySelectorArgument="&lt;webctrl id='23674510from' tag='INPUT' type='text' aaname='от' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAKMAAAAnCAYAAABjTfhOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHcSURBVHhe7djdbYMwFEDhTtOXLJYMwBTOEijPyQJlhUqR6BCNMoQL+Iq/GOIEg6/U80l+CFzejmzIhwWUIEao0cX488lipVliGCOwNWKEGsQINYgRahAj1CBGqEGMUIMYoQYxQg3dMd5sYTKbZbJMUV157vZlumcyYwvPQyEz2JjeGCXEUznx289F1ovrVlgzii1kBgmojbHMH3esp9GUNq92OvM1HGjia3fVkBkkoTVGfxxudxyH1JqKtQk7rzKshMwgjWgx/p7tYbezu3YZe5Vbj/e6dbjcZWioPPmO5CdH9Wxocj1kBmlEiVFi64d1Pdax9YIUzfX92foT7LwV49wR3IYWMoMklsd4t+d9FdhxnJ3/+roxynP9qJqdcHgtZAYJLI/xas3EcXu/HB7CWzvGmotNVv3e6TmCQ2awscUxyhFtvuV3TxPj6KgOjfGtD5gJ7gie/zgJmcHKtO6M8f7aGe+mITNIYnmMEljkd8Y2kHZ3fOWI7nY434dJyAwSiBHjGl/TjgTYf7eTO47b5fJRn4P3wYmjN2QGG4sSY23uf8ae12LEvxItRmApYoQaxAg1iBFqECPUIEaoQYxQgxihBjFCDWKEGsQINSZjZLFSLNHFCCRGjFDC2j/De0r+T+lomwAAAABJRU5ErkJggg==" InformativeScreenshot="f011ed71f14f37f13bb87025530c13e9.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete">
                   <uix:TargetAnchorable.Anchors>
                     <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
                       <uix:Target DesignTimeRectangle="542, 787, 28, 35" ElementType="Text" FriendlyName="'от'" FullSelectorArgument="&lt;webctrl aaname='от' idx='2' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='от' type='' tag='LABEL' check:text='от' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACAAAAAnCAYAAABuf0pMAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACvSURBVFhH7dRNDoMgEAXgnsYNF5Oz4FXwJiYseogmHOKVklEQjYuqmaZ5L5mFQJhP/HlAOT8EeHYqtQYohAACCCCAAALOAV4e1hiYpRyCTG3nStkxyqIzAGlQbxaGT4MKIcnjvUdZWfIlIML3adOhbbU/fgMgwDV3PyeOdtPseoAcv5vkukoGNI/hD08gJW+q9w6k6H4FkqP/QJX7ABeEAAIIIICANUChCkApygDgDakRosMiurylAAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" />
@@ -148,7 +147,7 @@
             </uix:NTypeInto>
             <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into Вес до" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="334,226" sap2010:WorkflowViewState.IdRef="NTypeInto_2" Text="[WeightMax.ToString]">
               <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;glfilter=15938685%3A15938700%2C15938704%2C15938705%2C15938706&amp;glfilter=13313409%3A13317045%2C13317068%2C13317069%2C13317064%2C14012697%2C16653266%2C17760188%2C17760189%2C13317087%2C13317082%2C15885200%2C17317005%2C15363137%2C16653264%2C15488782%2C16604417&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="714, 787, 159, 35" ElementType="InputBox" FriendlyName="'INPUT 23674510to'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' name='Вес до' /&gt;" FuzzySelectorArgument="&lt;webctrl id='23674510to' tag='INPUT' type='text' aaname='до' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAKMAAAAnCAYAAABjTfhOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGsSURBVHhe7dldjoIwFEDh2Y8bkwWwiroJ4jNuQJegiQmbkLiIO522MJQfM46NXprzJX0AfDy5pfglgBLECDX6GM/nM4v1kdWJYgTejRihBjFCDWKEGsQINYgRahAj1CBGqEGMUGM1MTb7UsqyW0ZObXiAbKwixvZobICVNNE1QeZmBTE2UtlpaI7D8lo5mfE9rN0qJuPUXKBYu2Qx3g+FbDab0SqkvoUfOFcxD5//zXjbRh6SxXjd2bh213Bl3WopothCiIPf+ICfCLKpwgGGqZijt8Xonm9rufvL3tL9x/w7Y7lnNubkTTHepd6Onncuxk5HY+fmk9yU5ESdk0Qx+tiKw2C+RTH6LTp63nExPrFVd4gxO0ljNJdw+SPVZGxPYuw7YjXakTnE5CdNjJPDijW65w4r/3xn9P++DMILgXKIyUuSGP2peDTdJoG+dpqO/w6cTkqs38sxusnWfzecX7/bd5rvjMhTmhgXt1kfX/QuCSxIE+PcwcSZOdgAC16OEUiFGKEGMUINYoQaxAg1iBFqECPUIEaoQYxQYzFGFusTq9PHCHwaMUIJkW/PZkZm+3uagwAAAABJRU5ErkJggg==" InformativeScreenshot="307409fcd0b864d86bff2e16a5a5b91b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector" WaitForReadyArgument="Complete">
+                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/list?cpa=0&amp;hid=91013&amp;how=aprice&amp;rs=eJwzYgpgBAABcwCG&amp;suggest_text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;glfilter=5085102%3A12106034&amp;glfilter=15938685%3A15938700%2C15938704%2C15938705%2C15938706&amp;glfilter=13313409%3A13317045%2C13317068%2C13317069%2C13317064%2C14012697%2C16653266%2C17760188%2C17760189%2C13317087%2C13317082%2C15885200%2C17317005%2C15363137%2C16653264%2C15488782%2C16604417&amp;onstock=1&amp;local-offers-first=0" DesignTimeRectangle="714, 787, 159, 35" ElementType="InputBox" FriendlyName="'INPUT 23674510to'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' name='Вес до' /&gt;" FuzzySelectorArgument="&lt;webctrl id='23674510to' tag='INPUT' type='text' aaname='до' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAKMAAAAnCAYAAABjTfhOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGsSURBVHhe7dldjoIwFEDh2Y8bkwWwiroJ4jNuQJegiQmbkLiIO522MJQfM46NXprzJX0AfDy5pfglgBLECDX6GM/nM4v1kdWJYgTejRihBjFCDWKEGsQINYgRahAj1CBGqEGMUGM1MTb7UsqyW0ZObXiAbKwixvZobICVNNE1QeZmBTE2UtlpaI7D8lo5mfE9rN0qJuPUXKBYu2Qx3g+FbDab0SqkvoUfOFcxD5//zXjbRh6SxXjd2bh213Bl3WopothCiIPf+ICfCLKpwgGGqZijt8Xonm9rufvL3tL9x/w7Y7lnNubkTTHepd6Onncuxk5HY+fmk9yU5ESdk0Qx+tiKw2C+RTH6LTp63nExPrFVd4gxO0ljNJdw+SPVZGxPYuw7YjXakTnE5CdNjJPDijW65w4r/3xn9P++DMILgXKIyUuSGP2peDTdJoG+dpqO/w6cTkqs38sxusnWfzecX7/bd5rvjMhTmhgXt1kfX/QuCSxIE+PcwcSZOdgAC16OEUiFGKEGMUINYoQaxAg1iBFqECPUIEaoQYxQYzFGFusTq9PHCHwaMUIJkW/PZkZm+3uagwAAAABJRU5ErkJggg==" InformativeScreenshot="307409fcd0b864d86bff2e16a5a5b91b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete">
                   <uix:TargetAnchorable.Anchors>
                     <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
                       <uix:Target DesignTimeRectangle="714, 787, 30, 35" ElementType="Text" FriendlyName="'до'" FullSelectorArgument="&lt;webctrl aaname='до' idx='2' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='до' type='' tag='LABEL' check:text='до' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAACIAAAAnCAYAAABqippxAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADoSURBVFhH7ZTbDYQgEEW3HxuTWrAVrEQTyzCxiFmWwcdc2Y2RJfgxJ5kPHpEDXHzRQ3ieyDAMVUuI1ERFEBVBVARREURFEBVBskSW3lDTNFCG3BwnBCayP8eZLJGp8x/uptjyzI6MWChKHOaw/FmmqEgYbx0t3NxI9RcUWci1ML4yWn8q1p/XToYIL2T6w76ECF+LGF8JIvJ6skXsGJsfqpzIKZge6AvBLJ0RTr/c1Vmu8KsJO9r+C+nar6zgf+Tbs2R4YZGdC9wXSYUwkAjxBe6H9c+oCKIiiIogKoIIkZq1idTmISJEb/Q00SkNueC0AAAAAElFTkSuQmCC" SearchSteps="FuzzySelector, Image" />
@@ -165,11 +164,11 @@
       </uix:NApplicationCard.TargetApp>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </uix:NApplicationCard>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Установка фильтра по весу закончена&quot;]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Установка фильтра по весу закончена&quot;]" />
   </Sequence>
 </Activity>

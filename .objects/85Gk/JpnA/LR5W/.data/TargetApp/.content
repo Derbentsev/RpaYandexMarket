@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-16"?>
-<TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" ContentHash="9rmgFmhmFEOkwrK8TVZcQA" Reference="Wxdt7rtM0kGORdIFAAeUoQ/LR5WJDnNj0ilI9qXjokx2w" Selector="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" Url="https://market.yandex.ru" xmlns="http://schemas.uipath.com/workflow/activities/uix">
-  <imageRef attrName="IconBase64" xmlns="">0xsPaNEpqz06mPB9eYGlXNQ</imageRef>
-  <imageRef attrName="InformativeScreenshot" originalValue="c4a2a17d4b0ddd4dd0cda0fa42f662e9.png" xmlns="">0AQovYqmTE0KopSelpw5UsQ</imageRef>
+<TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" ContentHash="4LXp9899n0uk7rYuYelZMg" Reference="Wxdt7rtM0kGORdIFAAeUoQ/LR5WJDnNj0ilI9qXjokx2w" Selector="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" Url="https://market.yandex.ru" xmlns="http://schemas.uipath.com/workflow/activities/uix">
+  <imageRef attrName="IconBase64" xmlns="">0LBFaznCx1E-Mo0kA9aRUCA</imageRef>
+  <imageRef attrName="InformativeScreenshot" originalValue="c4a2a17d4b0ddd4dd0cda0fa42f662e9.png" xmlns="">0nq_aF_-MCkixoTz1r3ecwg</imageRef>
 </TargetApp>

@@ -12,7 +12,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1695,1916</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1078,1916</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetWorkHorsFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="36">
@@ -89,7 +89,6 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Добавляем фильтры по времени автономной работы" DisplayName="SetWorkHorsFilter" sap:VirtualizedContainerService.HintSize="678,1851" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -130,7 +129,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Время работы" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='22' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='label' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" MaximumResults="0">
+            <uix:NExtractData AppendResults="False" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Время работы" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='22' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='fieldset' idx='1' /&gt;&lt;webctrl tag='ul' idx='1' /&gt;&lt;webctrl tag='li' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='label' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="560,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="Rows" MaximumResults="0" Timeout="1">
               <uix:NExtractData.Target>
                 <uix:TargetAnchorable DesignTimeRectangle="542, -3523, 331, 6028" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;aside&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='search-prepack' tag='DIV' /&gt;" InformativeScreenshot="73344f8415409901f4090b07079af8c1.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Ноутбуки — купить на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
               </uix:NExtractData.Target>
@@ -162,15 +161,9 @@
                     </Assign>
                     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Парсим часы работы" sap:VirtualizedContainerService.HintSize="484,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Utils\ParseWorkHours.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_Text">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow(&quot;Name&quot;).ToString" />
-                        </InArgument>
-                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMin">
-                          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="FilterQuantityCurrentMin" />
-                        </OutArgument>
-                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMax">
-                          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="FilterQuantityCurrentMax" />
-                        </OutArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Text">[CurrentRow("Name").ToString]</InArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMin">[FilterQuantityCurrentMin]</OutArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_TimeMax">[FilterQuantityCurrentMax]</OutArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
                     <If Condition="[WorkTimeMin &lt;= FilterQuantityCurrentMax]" DisplayName="If нужное время автономной работы" sap:VirtualizedContainerService.HintSize="484,344" sap2010:WorkflowViewState.IdRef="If_1">
