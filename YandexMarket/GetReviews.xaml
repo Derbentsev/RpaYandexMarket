@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GetReviews" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetReviews" this:GetReviews.in_ReviewUrl="/product--vstraivaemaia-posudomoechnaia-mashina-candy-cdi-2l10473-07/272700000/reviews?sku=272700000&amp;do-waremd5=og-L8xzROG5EI8nyDSEhhA&amp;cpc=Axc3xroA-724gRgfnbCb0Tsa9A1g2uDaEJM8lB_fm4kjAeD0e4m7Tbvlko0Qq6aKOwhjPiyJ3XpNFNtreIbGixuKP_b5XuRC1xgycyBihcmjkILXA9nU2yH9eTZixUWbTVrDRCkN2AqYw93qrhQ-9w-KGPAJzjt38xfZLxFGl6aW2U8-jgxMOg%2C%2C&amp;sort_desc=asc&amp;sort_by=grade&amp;page=1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_ReviewUrl" Type="InArgument(x:String)" />
     <x:Property Name="in_Datarow" Type="InArgument(sd:DataRow)" />
@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1078,1288</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1075,1560</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetReviews_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="33">
@@ -46,7 +46,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="64">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -79,11 +79,14 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Считываем обзоры" DisplayName="GetReviews" sap:VirtualizedContainerService.HintSize="583,1223" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Считываем обзоры" DisplayName="GetReviews" sap:VirtualizedContainerService.HintSize="560,1495" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_BadGrades" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -91,7 +94,8 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Browser Chrome Отзывы" sap:VirtualizedContainerService.HintSize="541,722" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" OpenMode="Always" Version="V1" WindowResize="Maximize">
+    <ui:BuildDataTable DataTable="[dt_BadGrades]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="518,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Name&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Name&gt;Ужасный товар&lt;/Name&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Name&gt;Плохой товар&lt;/Name&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Name&gt;Обычный товар&lt;/Name&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Always" DisplayName="Use Browser Chrome Отзывы" sap:VirtualizedContainerService.HintSize="518,722" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="Simulate" OpenMode="Always" Version="V1" WindowResize="Maximize">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -108,9 +112,9 @@
                 <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/product--noutbuk-haier-a1400ed-intel-celeron-n3350-1100mhz-14-1-1366x768-4gb-64gb-emmc-intel-hd-graphics-500-dos/816585042/reviews?nid=54544&amp;show-uid=16326479616033279425916008&amp;track=srchlink&amp;cpa=1&amp;glfilter=5085102%3A12106034&amp;onstock=1&amp;sku=101166515754&amp;cpc=96nWjBufO-BvZsor940nYlMGS3_h4Nser5quNYBFm39OTXUCEZ3YmoeTGBN7owjPERWrSwKTVnt83LagvAas5fubC1hpvPpxNZQyb5tjq7g2VVZlFcchttYL5eJTM2uHtmxsozBQHlVdfMOBQIRos2QHFnsg5U6-FQwTfASNNnhgLPF_kq6rzg%2C%2C&amp;do-waremd5=MU97kxC-MLT-KxMc3TckUQ" DesignTimeRectangle="610, 1147, 100, 20" ElementType="Text" FriendlyName="'по оценке'" FullSelectorArgument="&lt;webctrl aaname='по оценке' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='по оценке' tag='A' type='' check:text='по оценке' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGgAAAAYCAYAAAAWPrhgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHISURBVGhD7Za7kcIwEEAp7iqgD7qgAYogpoCLSBwwzshJIXENOtvaFfqtfsYzi2/fjAJLK2mlJwl2SmCNCGKOCGKOCGKOCGKOCGKOCGKOCGKOJWhQ58Ov2v0Q5fSAOM3zcnXbD3f1hLYU2X6vu9qP9ccevg0PdRzr95cBvgGIJ8frb2P9VZ1f8I3M9dY80Tg9p1uPdVhuqoOWNWgQlIpLJVvYr0JQINsUa7xmQZivP5Y/11Qi43+IUJB3U8yJwXpM0jupZrOC/kBpv2JBsdM9AvOYuGDjAYijBHUnf+z3AXNywxtMrXsh1YJ04vGb8pG2UkH+Bhu8dTQIwkPjPKeQl1MHzPkXPvG1VAqCGCIZvbDIZtT0KxRkbh5VcC4QQRVXkNXm70NmHOrwLWW7gnAdrYL8XHOCiLUt5cufuNhh8KDiYMNdQTrOyLf3gsxrXTbwJyEmfVBdnxGZEDShD42dB+wPcSi6nlj3QuoFjWDyYYnfEKSoHwiKx2HR8alnLnvTMoKiQqBPtFAHcyFNgiaCzSl8g7P9KgTNxOLtXJsFTeAttW/Su86UlX5/JixB34EWnL6pW0IEMUcEMefrBP03RBBzRBBrlPoDBAM6N8I/uiYAAAAASUVORK5CYII=" InformativeScreenshot="848436c7561c303d85fc76511d5d713e.png" ScopeSelectorArgument="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
               </uix:NClick.Target>
             </uix:NClick>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Оценка'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Отзыв'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='class'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='i' idx='3' /&gt;&lt;webctrl tag='svg' idx='1' /&gt;&lt;webctrl tag='path' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="Rows" MaximumResults="2">
+            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='Rewiew'&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column1' attr='text'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NExtractData_1" MaximumResults="0">
               <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="380, 389, 1269, 4135" FriendlyName="'DIV scroll-to-reviews-l…'" FullSelectorArgument="&lt;webctrl id='scroll-to-reviews-list' tag='DIV' /&gt;" InformativeScreenshot="13032bea5f6ff9d9cda79522a1ff6f8d.png" ScopeSelectorArgument="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
+                <uix:TargetAnchorable DesignTimeRectangle="60, 605, 1269, 2885" FriendlyName="'DIV scroll-to-reviews-l…'" FullSelectorArgument="&lt;webctrl id='scroll-to-reviews-list' tag='DIV' /&gt;" InformativeScreenshot="afff3a148ebf27b843e3b1f2f300b9d5.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Стоит ли покупать 15.6&amp;quot; Ноутбук Lenovo V15 ADA (1920x1080, AMD Ryzen 5 2.1 ГГц, RAM 8 ГБ, SSD 256 ГБ, Без ОС)? Отзывы на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
               </uix:NExtractData.Target>
             </uix:NExtractData>
           </Sequence>
@@ -126,26 +130,31 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </uix:NApplicationCard>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="541,338" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_BadGrades]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="518,511" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <If Condition="[CurrentRow(&quot;Оценка&quot;).ToString = &quot;_3IXcz&quot;]" DisplayName="If рейтинг &lt;= 3" sap:VirtualizedContainerService.HintSize="507,218" sap2010:WorkflowViewState.IdRef="If_1">
+          <If Condition="[ExtractDataTable(0)(&quot;Name&quot;).ToString.Contains(CurrentRow(&quot;Name&quot;).ToString)]" DisplayName="If рейтинг &lt;= 3" sap:VirtualizedContainerService.HintSize="484,391" sap2010:WorkflowViewState.IdRef="If_2">
             <If.Then>
-              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:Object">[in_Datarow("Отзыв")]</OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:Object">[CurrentRow("Отзыв").ToString]</InArgument>
-                </Assign.Value>
-              </Assign>
+              <Sequence sap:VirtualizedContainerService.HintSize="304,214" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Object">[in_Datarow("Отзыв")]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[ExtractDataTable(0)("Rewiew").ToString]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:Break sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="Break_2" />
+              </Sequence>
             </If.Then>
-            <If.Else>
-              <ui:Break sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Break_1" />
-            </If.Else>
           </If>
         </ActivityAction>
       </ui:ForEachRow.Body>

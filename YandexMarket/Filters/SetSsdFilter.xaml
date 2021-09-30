@@ -2,14 +2,18 @@
   <x:Members>
     <x:Property Name="in_Browser" Type="InArgument(ui:UiElement)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_FiltersStructure" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <this:SetSsdFilter.in_Config>
     <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
   </this:SetSsdFilter.in_Config>
+  <this:SetSsdFilter.in_FiltersStructure>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:SetSsdFilter.in_FiltersStructure>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1078,2160</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1075,2068</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetHddFilter_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="36">
@@ -52,7 +56,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="64">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -85,16 +89,17 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Устанавливаем фильтр по размеру жесткого диска" DisplayName="SetSsdFilter" sap:VirtualizedContainerService.HintSize="763,2095" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Устанавливаем фильтр по размеру жесткого диска" DisplayName="SetSsdFilter" sap:VirtualizedContainerService.HintSize="721,2003" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractDataTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Checkboxes" />
       <Variable x:TypeArguments="x:String" Name="RegexPatternt" />
       <Variable x:TypeArguments="x:Int32" Name="SsdMax" />
       <Variable x:TypeArguments="x:Int32" Name="SsdMin" />
-      <Variable x:TypeArguments="x:String" Name="ShowAllName" />
+      <Variable x:TypeArguments="x:String" Name="FilterName" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -102,7 +107,7 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="721,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="679,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
@@ -131,7 +136,7 @@
           </ui:AssignOperation>
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
             <ui:AssignOperation.To>
-              <OutArgument x:TypeArguments="x:String">[ShowAllName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[FilterName]</OutArgument>
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="x:String">Общий объем накопителей SSD</InArgument>
@@ -140,97 +145,101 @@
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser 'Яндекс.Маркет: Ноутбуки'" sap:VirtualizedContainerService.HintSize="721,1741" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="Simulate" Version="V1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="679,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Устанавливаю фильтр по SSD&quot;]" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Считываем чекбоксы по фильтру" sap:VirtualizedContainerService.HintSize="679,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="YandexMarket\Filters\ShowFilter.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="ui:UiElement" x:Key="in_Browser" />
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_FiltersStructure">
+          <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="in_FiltersStructure" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_FilterName">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="FilterName" />
+        </InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_Checkboxes">
+          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_Checkboxes" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Use Application/Browser 'Яндекс.Маркет: Ноутбуки'" sap:VirtualizedContainerService.HintSize="679,1235" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="Simulate" Version="V1">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="687,1525" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_Checkboxes]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="645,1019" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                </ActivityAction.Argument>
+                <Sequence sap:VirtualizedContainerService.HintSize="611,898" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
+                    <Variable x:TypeArguments="x:String" Name="FilterNameCurrent" />
+                    <Variable x:TypeArguments="x:Int32" Name="FilterQuantityCurrent" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Matches sap:VirtualizedContainerService.HintSize="569,59" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[CurrentRow(&quot;Name&quot;).ToString]" IsBuilderTabModified="False" Pattern="[RegexPatternt]" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
+                  <If Condition="[CurrentRow(&quot;Name&quot;).ToString.Contains(&quot;ТБ&quot;)]" DisplayName="If есть ТБ" sap:VirtualizedContainerService.HintSize="569,220" sap2010:WorkflowViewState.IdRef="If_4">
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="Assign_4">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[FilterQuantityCurrent]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString) * 1000]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="Assign_5">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[FilterQuantityCurrent]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Else>
+                  </If>
+                  <Assign sap:VirtualizedContainerService.HintSize="569,61" sap2010:WorkflowViewState.IdRef="Assign_6">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[FilterQuantityCurrent &gt;= SsdMin And FilterQuantityCurrent &lt;= SsdMax]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="569,344" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If.Then>
+                      <uix:NCheck Action="Check" ContinueOnError="True" DisplayName="Check/Uncheck" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NCheck_2" Timeout="1">
+                        <uix:NCheck.Target>
+                          <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" FullSelectorArgument="[String.Format(&quot;&lt;webctrl tag='DIV' innertext='{0}' /&gt;&lt;webctrl tag='label' /&gt;&lt;webctrl tag='input' /&gt;&quot;, FilterNameCurrent)]" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
+                        </uix:NCheck.Target>
+                      </uix:NCheck>
+                    </If.Then>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NClick ClickType="Single" DisplayName="Click 'ShowAll'" sap:VirtualizedContainerService.HintSize="645,166" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left">
-              <uix:NClick.Target>
-                <uix:TargetAnchorable BrowserURL="https://market.yandex.ru/catalog--noutbuki/54544/filters?text=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%B8&amp;cpa=0&amp;hid=91013&amp;onstock=1&amp;local-offers-first=0" ContentHash="rywmTJEol0WSIy07-gZntg" DesignTimeRectangle="228, 111, 412, 45" FriendlyName="'Включено в стоимость'" FullSelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' tag='H4' /&gt;&quot;, ShowAllName)]" FuzzySelectorArgument="[String.Format(&quot;&lt;webctrl aaname='{0}' tag='H4' check:text='Включено в стоимость' /&gt;&quot;, ShowAllName)]" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAaAAAAAxCAYAAACce30LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAT8SURBVHhe7do9UuQ6FIZh1thVsyGqt9JsgISAhIQJCCBgBUzQCQkpia9kS/b5k9vDAOLC+1S55rYsS7J863y44WwAAKADAggA0AUBBADoggACAHRBAAEAuiCAAABdEEAAgC4IIABAFwQQAKALAggA0AUBBADoggACAHRBAAEAuiCAAABdEEAAgC4IIABAFwQQAKALAggA0MU3CqDjcPh1NpydBcf5bekDAPgqvl8AubC5HfaEEAB8OT8ggFIEnaf2X4fUAwDwVXxYAN3f3w8PDw/l0zZvuWaxNYCmfrsLEUd/DsMuvyWJkDpe7IKv8/bpfUqcV6FmvwJc+mZRCPox/Lz73+VE9nvvxq1veOp+knE+MY49L4X3atbl2ftNx7j35Y0zOsSzWV9f8Iyy8f5Fe/ns9ySpz9Sem9vrEVwb3MM4p7vWnG+tG0DowwLoeDwOV1dXw93d3fD6+lpaY/l87pf7Pz8/l9a/VQqiDaBSpJZCbotEfJ0LB1P89Xk/xlTUd8Phz/R5SwDZa2rBm9e+MYCm4i76lXFahdHdazCm1gi9i+D+ggJ/en1RIV9CYW6fA8gEdbIE3Po+tNaix0vrudB3ET3PeN0AWj70K7iXl5fh+vp6uLm5aYZQbs/nc7/c/+1KCJSCtBy2AOoi0SqSriivBVAYDGU9JZSigqXGaISEum5LAI19RIhVrfbE3WsyzmvDvIiLrxfu7ab1+UI+zbnTe1T2Y2/XM+7lLrXL+fXzWMj2Vh8v3gO/bgBtH/47oBow+e3GBkz+nNvXAmq7VvEoPznPxUIUiVNFWY5Vil1tkUW7VaxdH1OwVOFvrEUVcbOGiQ4g1V+Z+tk3hUytIwvfAqrtRTZay7b1mTnmvYnCNo1l9q7ez62ay1wrLPff3iNrLYD0D0Dx/18APumPEHK45N/v5LDJX81lT09P4+fc/u/hk7UCKFEFSheJViF1oWKK/1RIl3GaAVSvMUVyXkcpYm48dcgxovPLfcSFMTtRgBvjee1xLHX/xbb1yQCS/23mnp+JfPZLiKj5V0J17rcavNpaAMm9ifYAwORTAqh6fHwcLi8vxz80yP/mz+9HFiGjFG7307Vq1zYFUClArm8h+2RjvzTfdJSviOp5M34o7KOLcrvgLYXZsuuse+QLbOaLbEu0lm3rW+bQa2sF0DLuQfTXc5lrhWWO9h5ZWwNo/W0S+Nk+NYCy/OaTwyf/+75K0WwGkH4DqkViCgVbEINCshJAutBVK+sp5BibCtWGAKq//3Bf+6g90NQ6ivieJnHx9cIxNq2v7P/53vRtB1A9J9/e7PzxDwryOZ1+ZhUBBPy7Tw+gj9MoHqUALO22SJTrZDGJiuRKAM3FT8w9Fb+44Fd6jFLU3DVp7NpnSwAlLlTLHqjCKNh1hHsiNcZ777+Ck2EyWQsgP5+bP1i3W8s4pg2MtJ43/hWcGx/A7PsFUCoe9tBFzBeJWpjGQtEq1qsBlNn5TxcdP0Zpm8fIhwikjQGUTYVvOdz9CH7OdLTCZ1ZCVxx2DhcAwvr6yl66NawHkBXOPz/regTXuz7+DWYtgOR1a+sDfrpvFEAAgP8TAggA0AUBBADoggACAHRBAAEAuiCAAABdEEAAgC4IIABAFwQQAKALAggA0AUBBADoggACAHRBAAEAuiCAAABdEEAAgC4IIABAFwQQAKALAggA0AUBBADoYBj+A1YCzMSFYzDfAAAAAElFTkSuQmCC" InformativeScreenshot="02daca6a5c8a70c3e023f32be2bff44c.png" Reference="Wxdt7rtM0kGORdIFAAeUoQ/qS7i12qGqkWoVYUc4jnqyw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector, FuzzySelector, Image" />
-              </uix:NClick.Target>
-            </uix:NClick>
-            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[ExtractDataTable]" DisplayName="Extract Table Data Модели SSD" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Name'&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Column0' attr='text'&gt;&lt;webctrl tag='div' idx='10' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="645,166" sap2010:WorkflowViewState.IdRef="NExtractData_2" LimitExtractionTo="Rows" MaximumResults="0">
-              <uix:NExtractData.Target>
-                <uix:TargetAnchorable DesignTimeRectangle="222, -721, 487, 2159" FriendlyName="'DIV'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;section&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" InformativeScreenshot="c25648b25f5acdcb33360e06d6599d42.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector" WaitForReadyArgument="Complete" />
-              </uix:NExtractData.Target>
-            </uix:NExtractData>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[ExtractDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="645,1019" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
-              <ui:ForEachRow.Body>
-                <ActivityAction x:TypeArguments="sd:DataRow">
-                  <ActivityAction.Argument>
-                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-                  </ActivityAction.Argument>
-                  <Sequence sap:VirtualizedContainerService.HintSize="611,898" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                    <Sequence.Variables>
-                      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="RegexResult" />
-                      <Variable x:TypeArguments="x:String" Name="FilterNameCurrent" />
-                      <Variable x:TypeArguments="x:Int32" Name="FilterQuantityCurrent" />
-                    </Sequence.Variables>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <ui:Matches sap:VirtualizedContainerService.HintSize="569,59" sap2010:WorkflowViewState.IdRef="Matches_2" Input="[CurrentRow(&quot;Name&quot;).ToString]" IsBuilderTabModified="False" Pattern="[RegexPatternt]" RegexOption="IgnoreCase, Compiled" Result="[RegexResult]" />
-                    <If Condition="[CurrentRow(&quot;Name&quot;).ToString.Contains(&quot;ТБ&quot;)]" DisplayName="If есть ТБ" sap:VirtualizedContainerService.HintSize="569,220" sap2010:WorkflowViewState.IdRef="If_3">
-                      <If.Then>
-                        <Assign sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="Assign_1">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:Int32">[FilterQuantityCurrent]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString) * 1000]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                      </If.Then>
-                      <If.Else>
-                        <Assign sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="Assign_2">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:Int32">[FilterQuantityCurrent]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:Int32">[CInt(RegexResult(0).ToString)]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                      </If.Else>
-                    </If>
-                    <Assign sap:VirtualizedContainerService.HintSize="569,61" sap2010:WorkflowViewState.IdRef="Assign_3">
-                      <Assign.To>
-                        <OutArgument x:TypeArguments="x:String">[FilterNameCurrent]</OutArgument>
-                      </Assign.To>
-                      <Assign.Value>
-                        <InArgument x:TypeArguments="x:String">[CurrentRow("Name").ToString]</InArgument>
-                      </Assign.Value>
-                    </Assign>
-                    <If Condition="[FilterQuantityCurrent &gt;= SsdMin And FilterQuantityCurrent &lt;= SsdMax]" DisplayName="If нужная марка процессора" sap:VirtualizedContainerService.HintSize="569,344" sap2010:WorkflowViewState.IdRef="If_2">
-                      <If.Then>
-                        <uix:NCheck Action="Check" ContinueOnError="True" DisplayName="Check/Uncheck" sap:VirtualizedContainerService.HintSize="334,166" sap2010:WorkflowViewState.IdRef="NCheck_1" Timeout="1">
-                          <uix:NCheck.Target>
-                            <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" FullSelectorArgument="[String.Format(&quot;&lt;webctrl tag='DIV' innertext='{0}' /&gt;&lt;webctrl tag='label' /&gt;&lt;webctrl tag='input' /&gt;&quot;, FilterNameCurrent)]" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете' /&gt;" SearchSteps="Selector" />
-                          </uix:NCheck.Target>
-                        </uix:NCheck>
-                      </If.Then>
-                    </If>
-                  </Sequence>
-                </ActivityAction>
-              </ui:ForEachRow.Body>
-            </ui:ForEachRow>
-          </Sequence>
+          </ui:ForEachRow>
         </ActivityAction>
       </uix:NApplicationCard.Body>
       <uix:NApplicationCard.TargetApp>
         <uix:TargetApp Area="0, 0, 0, 0" BrowserType="Chrome" ContentHash="4LXp9899n0uk7rYuYelZMg" IconBase64="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" InformativeScreenshot="c4a2a17d4b0ddd4dd0cda0fa42f662e9.png" Reference="Wxdt7rtM0kGORdIFAAeUoQ/LR5WJDnNj0ilI9qXjokx2w" Selector="&lt;html app='chrome.exe' url='https://market.yandex.ru*' /&gt;" Url="https://market.yandex.ru" />
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="679,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Установил фильтр по SSD&quot;]" />
   </Sequence>
 </Activity>
